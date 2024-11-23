@@ -14,7 +14,7 @@
  *
  * This header file defines the SimpleShell class, which implements a basic shell
  * that accepts commands from the user, parses them, and executes them in a new process.
- * The class supports command parsing and execution, using standard Unix functions.
+ * The class supports command parsing, execution, and piping functionality.
  */
 
 /**
@@ -39,15 +39,15 @@ public:
 
 private:
     /**
-     * @brief Executes a command in a child process using fork and execvp.
+     * @brief Executes a command or pipeline using fork and execvp.
      *
-     * This function spawns a child process that replaces its process image with the command
-     * specified by the user. The parent process waits for the child process to complete execution.
-     * Handles input and output redirection if specified in the command.
+     * This function handles both single commands and pipelines of commands connected with '|'.
+     * Each command in a pipeline runs in a separate child process, and pipes are used to
+     * redirect the output of one command to the input of the next.
      *
-     * @param argv A vector containing the command and its arguments to be executed.
+     * @param commands A vector of vectors, where each inner vector contains a command and its arguments.
      */
-    void execute(const std::vector<std::string>& argv);
+    void execute(const std::vector<std::vector<std::string>>& commands);
 
     /**
      * @brief Parses a line of input into tokens based on a specified delimiter.

@@ -10,8 +10,9 @@ BIN_DIR = bin
 # Target executable name
 TARGET = $(BIN_DIR)/SimpleShell
 
-# Source files
+# Source and header files
 SRCS = $(SRC_DIR)/SimpleShell.cpp
+HEADERS = $(INCLUDE_DIR)/SimpleShell.h
 
 # Object files
 OBJS = $(SRCS:.cpp=.o)
@@ -27,7 +28,7 @@ $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
 
 # Compile object files
-$(SRC_DIR)/%.o: $(SRC_DIR)/%.cpp $(INCLUDE_DIR)/%.h
+$(SRC_DIR)/%.o: $(SRC_DIR)/%.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Run the compiled program

@@ -8,6 +8,7 @@ SimpleShell is a simple, interactive shell program written in C++. It allows use
 - **Command Execution**: Each command runs in a child process, created using `fork()` and executed with `execvp()`.
 - **Looping Prompt**: The shell continuously prompts users for commands until they signal EOF (e.g., `Ctrl+D`).
 - **Input/Output Redirection**: Supports redirection of input and output using `<` and `>` symbols. For example, `command < input.txt > output.txt` redirects standard input from `input.txt` and standard output to `output.txt`.
+- **Pipe Handling**: Supports command piping using `|` to pass the output of one command as input to another. For example, `cat file.txt | grep pattern`.
 - **Basic Error Handling**: Provides feedback for failed executions or invalid commands.
 
 ## Program Structure
@@ -19,7 +20,7 @@ SimpleShell is a simple, interactive shell program written in C++. It allows use
 ## File Descriptions
 
 - `SimpleShell.h`: Header file containing the declarations of the shell methods and class structure.
-- `SimpleShell.cpp`: Source file with the full implementation of the shell’s features, including command parsing and execution.
+- `SimpleShell.cpp`: Source file with the full implementation of the shell’s features, including command parsing, execution, and pipe handling.
 - `Makefile`: Used to compile, run, and clean the program with simple commands.
 
 ## How to Build and Run the Program
@@ -59,7 +60,7 @@ Hello, SimpleShell!
 SimpleShell % pwd
 /home/user/Simpleshell
 
-SimpleShell % cat < input.txt > output.txt
+SimpleShell % cat < input.txt | grep pattern > output.txt
 
 SimpleShell % invalidcommand
 Execution failed: No such file or directory
@@ -71,15 +72,15 @@ SimpleShell % Ctrl+D
 
 - **Shell Loop** (`run()`): The main loop displays the prompt, reads user input, parses it, and executes the command.
 - **Command Parsing** (`parse()`): Splits the input string by spaces to form a command and argument list.
-- **Command Execution** (`execute()`): Uses `fork()` to create a new process and `execvp()` to run the command in the child process. Handles input and output redirection using `<` and `>`.
+- **Command Execution** (`execute()`): Uses `fork()` to create a new process and `execvp()` to run the command in the child process. Handles input and output redirection using `<` and `>` and handles pipes (`|`) for command chaining.
 
 ## Future Extensions
 
 SimpleShell is designed as a minimalistic shell, ideal for adding more advanced features, such as:
-- **Pipe Handling**: Allowing commands to be chained (e.g., `ls | grep file`).
 - **Append Output Redirection**: Supporting `>>` to append output to a file.
 - **Signal Handling**: Implementing custom handling for signals (e.g., `Ctrl+C` to terminate commands).
 - **Environment Variables**: Supporting access and modification of environment variables.
+- **Command History**: Adding support for maintaining a history of commands, allowing users to recall previous commands easily.
 
 ## Troubleshooting
 
